@@ -1,0 +1,147 @@
+:root {
+  font-family: 'Tajawal', 'Segoe UI', Tahoma, sans-serif;
+  color: #1f2937;
+  background-color: #f8fafc;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f8fafc;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.page {
+  min-height: 100vh;
+}
+
+.hero {
+  background: linear-gradient(135deg, #0f172a, #1d4ed8);
+  color: white;
+  padding: 1.5rem 8% 4rem;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.links {
+  display: flex;
+  gap: 1rem;
+  opacity: 0.95;
+}
+
+.hero-content {
+  max-width: 720px;
+  margin-top: 3rem;
+}
+
+.hero-content h1 {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+.hero-content p {
+  line-height: 1.8;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+button,
+.secondary-btn {
+  border-radius: 999px;
+  border: none;
+  padding: 0.7rem 1.3rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+button {
+  background: white;
+  color: #1e3a8a;
+  font-weight: 700;
+}
+
+.secondary-btn {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.stats-grid {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.8rem;
+}
+
+.stat-card {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.stat-card strong {
+  display: block;
+  font-size: 1.6rem;
+}
+
+.section {
+  padding: 3rem 8%;
+}
+
+.section-title h2 {
+  margin-bottom: 0.4rem;
+}
+
+.section-title p {
+  color: #475569;
+  max-width: 680px;
+}
+
+.cards {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: white;
+  border-radius: 14px;
+  padding: 1.2rem;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+}
+
+.role {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.footer {
+  text-align: center;
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 2rem 1rem;
+  line-height: 1.8;
+}
