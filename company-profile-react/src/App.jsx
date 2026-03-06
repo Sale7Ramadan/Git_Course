@@ -1,155 +1,144 @@
-import SectionTitle from './components/SectionTitle';
-import { companyInfo, services, stats, team } from './data/content';
-
-const highlights = [
-  'تصميم UI/UX واضح وسلس',
-  'تسليمات سريعة بمراحل واضحة',
-  'جودة تقنية من أول نسخة'
-];
-
-const workflow = [
-  { title: 'اكتشاف', text: 'نفهم المشروع، الجمهور، والأهداف قبل أي تنفيذ.' },
-  { title: 'تصميم', text: 'نصمم تجربة وهوية بصرية منسجمة مع شخصية البراند.' },
-  { title: 'تنفيذ', text: 'نطوّر المنتج بجودة عالية مع اختبارات قبل الإطلاق.' },
-  { title: 'تحسين', text: 'نراقب الأداء ونحسّن النتائج بعد الإطلاق.' }
-];
-
-const testimonials = [
-  {
-    quote:
-      'اشتغلنا مع Rivica على صفحة الهبوط وكان التعاون سريع ومرن والنتيجة أفضل من المتوقع.',
-    name: 'Lama Studio',
-    title: 'مؤسسة ناشئة'
-  },
-  {
-    quote:
-      'أكثر شيء ميّز الفريق هو الوضوح بالتواصل والاهتمام بكل تفاصيل تجربة المستخدم.',
-    name: 'NexGen Hub',
-    title: 'منصة تعليمية'
-  }
-];
+import {
+  aboutPoints,
+  companyInfo,
+  contactItems,
+  services,
+  team
+} from './data/content';
 
 function App() {
   return (
     <div className="page">
-      <header className="hero">
-        <div className="hero-glow" />
-        <nav className="nav container">
-          <span className="logo">{companyInfo.name}</span>
-          <div className="links">
-            <a href="#about">من نحن</a>
-            <a href="#services">الخدمات</a>
-            <a href="#process">طريقة العمل</a>
-            <a href="#team">الفريق</a>
-            <a href="#contact">تواصل</a>
+      <div className="site-card">
+        <header className="topbar" id="home">
+          <div className="brand">
+            <span className="brand-mark">🛡️</span>
+            <strong>{companyInfo.name}</strong>
           </div>
-        </nav>
 
-        <div className="hero-layout container">
-          <div className="hero-content">
-            <p className="eyebrow">Rivica • Digital Product Team</p>
+          <nav className="nav-links">
+            <a href="#home" className="active">
+              Home
+            </a>
+            <a href="#services">Services</a>
+            <a href="#projects">Projects</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+          </nav>
+
+          <div className="top-actions">
+            <button className="primary-btn">Get Started</button>
+            <button className="menu-btn" aria-label="open menu">
+              ☰
+            </button>
+          </div>
+        </header>
+
+        <section className="hero section-grid">
+          <div className="hero-copy">
+            <p className="pre-title">{companyInfo.name}</p>
             <h1>{companyInfo.tagline}</h1>
             <p>{companyInfo.description}</p>
-            <div className="actions">
-              <button>{companyInfo.ctaPrimary}</button>
-              <a href="#services" className="secondary-btn">
-                {companyInfo.ctaSecondary}
-              </a>
-            </div>
-            <div className="highlight-list">
-              {highlights.map((item) => (
-                <span key={item}>{item}</span>
-              ))}
+            <div className="hero-buttons">
+              <button className="primary-btn">{companyInfo.ctaPrimary} →</button>
+              <button className="ghost-btn">{companyInfo.ctaSecondary}</button>
             </div>
           </div>
+          <div className="hero-visual" role="img" aria-label="Digital shield hero visual" />
+        </section>
 
-          <aside className="hero-panel">
-            <h3>لماذا Rivica؟</h3>
+        <section className="section-grid content-section" id="about">
+          <div className="section-image about-image" />
+          <div>
+            <h2>About Rivica</h2>
             <p>
-              فريق صغير يعني تواصل مباشر، سرعة قرار، وتركيز كامل على مشروعك بدون
-              تعقيد.
+              Rivica is a team of developers, designers, and creatives who came together to build
+              impactful digital products.
             </p>
-            <div className="stats-grid">
-              {stats.map((stat) => (
-                <article key={stat.label} className="stat-card">
-                  <strong>{stat.value}</strong>
-                  <span>{stat.label}</span>
+            <p>
+              Our goal is to transform ideas into scalable software solutions through
+              collaboration, creativity, and strong technical foundations.
+            </p>
+            <div className="feature-list">
+              {aboutPoints.map((item) => (
+                <article key={item.title} className="feature-item">
+                  <span>{item.icon}</span>
+                  <div>
+                    <h4>{item.title}</h4>
+                    <p>{item.text}</p>
+                  </div>
                 </article>
               ))}
             </div>
-          </aside>
-        </div>
-      </header>
-
-      <main>
-        <section id="about" className="section container">
-          <SectionTitle
-            title="نبني منتجات رقمية تُفهم بسرعة"
-            subtitle="نهتم بالوضوح في الرسالة والتصميم، حتى أول زيارة تتحول إلى انطباع قوي وثقة أعلى."
-          />
+          </div>
         </section>
 
-        <section id="services" className="section container">
-          <SectionTitle title="خدماتنا" subtitle="حلول عملية مصممة لتناسب فرق ناشئة وشركات صغيرة." />
-          <div className="cards services-grid">
+        <section className="content-section" id="services">
+          <h2>Our Services</h2>
+          <h3>Turning Ideas Into Impactful Digital Products</h3>
+          <p className="section-intro">
+            At Rivica, we provide a range of services to bring your digital vision to life.
+          </p>
+          <div className="service-grid">
             {services.map((service) => (
-              <article className="card" key={service.title}>
-                <h3>{service.title}</h3>
+              <article key={service.title} className="service-card">
+                <span>{service.icon}</span>
+                <h4>{service.title}</h4>
                 <p>{service.description}</p>
               </article>
             ))}
           </div>
+          <button className="ghost-btn center-btn">View All Services</button>
         </section>
 
-        <section id="process" className="section container">
-          <SectionTitle title="طريقة عملنا" subtitle="خطوات واضحة من الفكرة إلى الإطلاق والتحسين." />
-          <div className="workflow-grid">
-            {workflow.map((step, index) => (
-              <article className="workflow-card" key={step.title}>
-                <span className="step-index">0{index + 1}</span>
-                <h3>{step.title}</h3>
-                <p>{step.text}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="team" className="section container">
-          <SectionTitle title="فريقنا" subtitle="خبرات متكاملة تتعاون كفريق واحد على نجاحك." />
-          <div className="cards team-grid">
+        <section className="content-section" id="projects">
+          <h2>Meet Our Team</h2>
+          <h3>The Minds of Rivica</h3>
+          <p className="section-intro">A diverse team of experts working together to build innovative solutions.</p>
+          <div className="team-grid">
             {team.map((member) => (
-              <article className="card" key={member.name}>
-                <h3>{member.name}</h3>
-                <p className="role">{member.role}</p>
-                <p>{member.bio}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section className="section container">
-          <SectionTitle title="آراء شركاء العمل" subtitle="بعض الانطباعات من فرق اشتغلنا معها." />
-          <div className="testimonial-grid">
-            {testimonials.map((item) => (
-              <article className="testimonial-card" key={item.name}>
-                <p>“{item.quote}”</p>
-                <div>
-                  <strong>{item.name}</strong>
-                  <span>{item.title}</span>
+              <article key={member.name} className="team-card">
+                <img src={member.image} alt={member.name} loading="lazy" />
+                <div className="team-info">
+                  <h4>{member.name}</h4>
+                  <p>{member.role}</p>
+                  <button className="ghost-btn">View Project</button>
                 </div>
               </article>
             ))}
           </div>
+          <button className="ghost-btn center-btn">View All Projects</button>
         </section>
-      </main>
 
-      <footer id="contact" className="footer">
-        <div className="container footer-inner">
-          <h2>خلينا نطلق نسختك القادمة بشكل احترافي</h2>
-          <p>hello@rivica.io • +963 900 000 000</p>
-          <small>© {new Date().getFullYear()} {companyInfo.name} - جميع الحقوق محفوظة</small>
-        </div>
-      </footer>
+        <section className="content-section contact-grid" id="contact">
+          <div>
+            <h2>Get In Touch</h2>
+            <h3>Let's Talk About Your Project</h3>
+            <p className="section-intro">
+              Reach out to Rivica for any inquiries or to start your next digital transformation.
+            </p>
+            <div className="contact-cards">
+              {contactItems.map((item) => (
+                <article className="contact-card" key={item.label}>
+                  <span>{item.icon}</span>
+                  <h4>{item.label}</h4>
+                  <p>{item.value}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
+            <h2>Send a Message</h2>
+            <input type="text" placeholder="Your Name" />
+            <input type="email" placeholder="Your Email" />
+            <textarea placeholder="Your Message" rows={6} />
+            <button className="primary-btn" type="submit">
+              Submit
+            </button>
+          </form>
+        </section>
+      </div>
     </div>
   );
 }

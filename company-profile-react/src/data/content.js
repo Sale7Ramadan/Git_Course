@@ -1,47 +1,77 @@
 export const companyInfo = {
   name: 'Rivica',
-  tagline: 'فريق ناشئ يبني تجارب رقمية واضحة وسريعة تساعد المشاريع تنطلق بقوة.',
+  tagline: 'Turning Ideas Into Digital Solutions.',
   description:
-    'نحن فريق ناشئ يجمع بين التصميم والتطوير وصناعة المحتوى. نشتغل بشغف على تحويل الأفكار إلى منتجات رقمية مفهومة، جميلة، وسهلة الاستخدام من أول زيارة.',
-  ctaPrimary: 'ابدأ مشروعك معنا',
-  ctaSecondary: 'تعرف على خدماتنا'
+    'A team of developers and designers building professional websites, applications, and digital experiences.',
+  ctaPrimary: 'Start a Project',
+  ctaSecondary: 'View Our Work'
 };
 
 export const services = [
   {
-    title: 'تصميم وتطوير المواقع',
-    description: 'نبني مواقع سريعة ومتجاوبة تعكس هوية مشروعك وتساعدك على جذب العملاء.'
+    icon: '💻',
+    title: 'Web Development',
+    description: 'Custom, responsive websites built for performance and scalability.'
   },
   {
-    title: 'التسويق عبر السوشال ميديا',
-    description: 'خطط محتوى وحملات إعلانية مدروسة لزيادة الوصول والمبيعات.'
+    icon: '📱',
+    title: 'Mobile App Development',
+    description: 'iOS and Android apps designed with smooth and modern user experiences.'
   },
   {
-    title: 'الهوية البصرية',
-    description: 'تصميم شعار ونظام ألوان متكامل يعطي مشروعك طابعاً احترافياً ومتناسقاً.'
+    icon: '🎨',
+    title: 'UI/UX Design',
+    description: 'Intuitive and engaging interfaces crafted for your brand and users.'
   }
 ];
 
 export const team = [
   {
-    name: 'سارة العلي',
-    role: 'مديرة المشاريع',
-    bio: 'تنظم سير العمل وتضمن تسليم المشاريع في الوقت وبأفضل جودة.'
+    name: 'Emma Yassin',
+    role: 'Team Lead',
+    image:
+      'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=500&q=80'
   },
   {
-    name: 'رامي حداد',
-    role: 'مطور واجهات React',
-    bio: 'متخصص في بناء واجهات حديثة سهلة الاستخدام وعالية الأداء.'
+    name: 'Jana Hamdan',
+    role: 'UI/UX Designer',
+    image:
+      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=500&q=80'
   },
   {
-    name: 'ليان يوسف',
-    role: 'مختصة تسويق رقمي',
-    bio: 'تدير الحملات الإعلانية وتتابع النتائج لتحسين العائد على الاستثمار.'
+    name: 'Omar Khaled',
+    role: 'Back-end Engineer',
+    image:
+      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=500&q=80'
+  },
+  {
+    name: 'Yasmin Najjar',
+    role: 'Frontend Developer',
+    image:
+      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=500&q=80'
   }
 ];
 
-export const stats = [
-  { label: 'نماذج أولية أطلقناها', value: '+18' },
-  { label: 'شركاء في مرحلة الإطلاق', value: '+9' },
-  { label: 'أعضاء الفريق', value: '5' }
+export const aboutPoints = [
+  {
+    title: 'Collaborative Team',
+    text: 'Developers, designers, and creators working together.',
+    icon: '✅'
+  },
+  {
+    title: 'Creative Thinking',
+    text: 'We approach problems with innovative and practical solutions.',
+    icon: '💡'
+  },
+  {
+    title: 'Scalable Solutions',
+    text: 'We build systems designed to grow with your business.',
+    icon: '🚀'
+  }
+];
+
+export const contactItems = [
+  { label: 'Phone', value: '+971 4 3116 556', icon: '📞' },
+  { label: 'Email', value: 'contact@rivica.io', icon: '✉️' },
+  { label: 'Location', value: 'Dubai, UAE', icon: '📍' }
 ];
