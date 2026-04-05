@@ -19,7 +19,7 @@ This repository now contains:
 
 ## Run Backend
 ```bash
-cd /home/runner/work/Git_Course/Git_Course/backend
+cd backend
 cp .env.example .env
 npm install
 npm start
