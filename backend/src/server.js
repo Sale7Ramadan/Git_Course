@@ -14,9 +14,16 @@ require('dotenv').config();
 
 const app = express();
 
-const PORT = Number(process.env.PORT || 3000);
-const JWT_SECRET = process.env.JWT_SECRET || 'dev-secret-change-me';
-const ALLOWED_ORIGIN = process.env.CORS_ORIGIN || '*';
+const parsedPort = Number(process.env.PORT || 3000);
+if (!Number.isInteger(parsedPort) || parsedPort < 1 || parsedPort > 65535) {
+  throw new Error('PORT must be a valid integer between 1 and 65535');
+}
+const PORT = parsedPort;
+const JWT_SECRET = process.env.JWT_SECRET || '';
+if (!JWT_SECRET && process.env.NODE_ENV !== 'development') {
+  throw new Error('JWT_SECRET is required outside development');
+}
+const ALLOWED_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173';
 const ENABLE_HTTPS = String(process.env.ENABLE_HTTPS || 'false').toLowerCase() === 'true';
 const HTTPS_KEY_PATH = process.env.HTTPS_KEY_PATH;
 const HTTPS_CERT_PATH = process.env.HTTPS_CERT_PATH;
@@ -42,7 +49,15 @@ function writeAudit(event, data = {}) {
 }
 
 app.use(helmet());
-app.use(cors({ origin: ALLOWED_ORIGIN === '*' ? true : ALLOWED_ORIGIN }));
+app.use(cors({
+  origin(origin, callback) {
+    if (!origin || origin === ALLOWED_ORIGIN) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Not allowed by CORS'));
+  }
+}));
 app.use(express.json({ limit: '20kb' }));
 app.use(morgan('combined'));
 
@@ -74,8 +89,7 @@ function validateRegisterBody(req, res, next) {
     return res.status(400).json({ error: 'username must be 3-32 characters' });
   }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (typeof email !== 'string' || !emailRegex.test(email)) {
+  if (typeof email !== 'string' || !email.includes('@') || email.length > 254) {
     return res.status(400).json({ error: 'email is invalid' });
   }
 
