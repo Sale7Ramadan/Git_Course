@@ -19,7 +19,12 @@ if (!Number.isInteger(parsedPort) || parsedPort < 1 || parsedPort > 65535) {
   throw new Error('PORT must be a valid integer between 1 and 65535');
 }
 const PORT = parsedPort;
-const JWT_SECRET = process.env.JWT_SECRET || 'dev-jwt-secret-only-for-local-use-9f1c8a2b';
+const JWT_SECRET = process.env.JWT_SECRET || '';
+if (!JWT_SECRET) {
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('JWT_SECRET must be provided in production');
+  }
+}
 const ALLOWED_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173';
 const ENABLE_HTTPS = String(process.env.ENABLE_HTTPS || 'false').toLowerCase() === 'true';
 const HTTPS_KEY_PATH = process.env.HTTPS_KEY_PATH;
@@ -86,8 +91,14 @@ function validateRegisterBody(req, res, next) {
     return res.status(400).json({ error: 'username must be 3-32 characters' });
   }
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (typeof email !== 'string' || !emailRegex.test(email) || email.length > 254) {
+  if (typeof email !== 'string' || email.length > 254) {
+    return res.status(400).json({ error: 'email is invalid' });
+  }
+  const at = email.indexOf('@');
+  const hasSingleAt = at > 0 && at === email.lastIndexOf('@') && at < email.length - 1;
+  const domainPart = hasSingleAt ? email.slice(at + 1) : '';
+  const hasDomainDot = domainPart.includes('.') && !domainPart.startsWith('.') && !domainPart.endsWith('.');
+  if (!hasSingleAt || !hasDomainDot) {
     return res.status(400).json({ error: 'email is invalid' });
   }
 
@@ -149,7 +160,7 @@ app.post('/api/register', authLimiter, validateRegisterBody, async (req, res) =>
   const normalizedEmail = email.toLowerCase();
 
   if (users.has(normalizedEmail)) {
-    writeAudit('register_failed', { reason: 'duplicate_email', email: normalizedEmail });
+    writeAudit('register_failed', { reason: 'duplicate_email' });
     return res.status(409).json({ error: 'email already registered' });
   }
 
@@ -180,7 +191,7 @@ app.post('/api/register', authLimiter, validateRegisterBody, async (req, res) =>
     value: 'example owned resource'
   });
 
-  writeAudit('register_success', { userId: user.id, email: user.email });
+  writeAudit('register_success', { userId: user.id });
 
   return res.status(201).json({
     message: 'registered',

@@ -12,7 +12,7 @@ npm start
 - `PORT`: API port (default `3000`)
 - `NODE_ENV`: environment name
 - `CORS_ORIGIN`: allowed CORS origin (set explicit trusted frontend origin only)
-- `JWT_SECRET`: secret for signing JWTs
+- `JWT_SECRET`: secret for signing JWTs (generate a strong value, e.g. `openssl rand -hex 32`)
 - `ENABLE_HTTPS`: `true` or `false`
 - `HTTPS_KEY_PATH`: path to TLS private key (required when HTTPS enabled)
 - `HTTPS_CERT_PATH`: path to TLS certificate (required when HTTPS enabled)
