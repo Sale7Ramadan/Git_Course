@@ -19,10 +19,11 @@ if (!Number.isInteger(parsedPort) || parsedPort < 1 || parsedPort > 65535) {
   throw new Error('PORT must be a valid integer between 1 and 65535');
 }
 const PORT = parsedPort;
-const JWT_SECRET = process.env.JWT_SECRET || 'dev-jwt-secret-only-for-local-use-9f1c8a2b';
-if (process.env.NODE_ENV === 'production' && !process.env.JWT_SECRET) {
-  throw new Error('JWT_SECRET must be provided in production');
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error('JWT_SECRET must be provided');
 }
+const BCRYPT_ROUNDS = Number(process.env.BCRYPT_ROUNDS || 12);
 const ALLOWED_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173';
 const ENABLE_HTTPS = String(process.env.ENABLE_HTTPS || 'false').toLowerCase() === 'true';
 const HTTPS_KEY_PATH = process.env.HTTPS_KEY_PATH;
@@ -45,7 +46,9 @@ function writeAudit(event, data = {}) {
     event,
     ...data
   });
-  fs.promises.appendFile(auditFile, `${line}\n`, 'utf8').catch(() => {});
+  fs.promises.appendFile(auditFile, `${line}\n`, 'utf8').catch((error) => {
+    console.error('Failed to write audit log', error);
+  });
 }
 
 function hashForAudit(value) {
@@ -167,7 +170,7 @@ app.post('/api/register', authLimiter, validateRegisterBody, async (req, res) =>
   }
 
   const userId = crypto.randomUUID();
-  const passwordHash = await bcrypt.hash(password, 12);
+  const passwordHash = await bcrypt.hash(password, BCRYPT_ROUNDS);
 
   const user = {
     id: userId,
