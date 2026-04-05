@@ -19,11 +19,9 @@ if (!Number.isInteger(parsedPort) || parsedPort < 1 || parsedPort > 65535) {
   throw new Error('PORT must be a valid integer between 1 and 65535');
 }
 const PORT = parsedPort;
-const JWT_SECRET = process.env.JWT_SECRET || '';
-if (!JWT_SECRET) {
-  if (process.env.NODE_ENV === 'production') {
-    throw new Error('JWT_SECRET must be provided in production');
-  }
+const JWT_SECRET = process.env.JWT_SECRET || 'dev-jwt-secret-only-for-local-use-9f1c8a2b';
+if (process.env.NODE_ENV === 'production' && !process.env.JWT_SECRET) {
+  throw new Error('JWT_SECRET must be provided in production');
 }
 const ALLOWED_ORIGIN = process.env.CORS_ORIGIN || 'http://localhost:5173';
 const ENABLE_HTTPS = String(process.env.ENABLE_HTTPS || 'false').toLowerCase() === 'true';
@@ -47,13 +45,17 @@ function writeAudit(event, data = {}) {
     event,
     ...data
   });
-  fs.appendFileSync(auditFile, `${line}\n`, 'utf8');
+  fs.promises.appendFile(auditFile, `${line}\n`, 'utf8').catch(() => {});
+}
+
+function hashForAudit(value) {
+  return crypto.createHash('sha256').update(String(value)).digest('hex');
 }
 
 app.use(helmet());
 app.use(cors({
   origin(origin, callback) {
-    if (origin === ALLOWED_ORIGIN) {
+    if (!origin || origin === ALLOWED_ORIGIN) {
       return callback(null, true);
     }
 
@@ -160,7 +162,7 @@ app.post('/api/register', authLimiter, validateRegisterBody, async (req, res) =>
   const normalizedEmail = email.toLowerCase();
 
   if (users.has(normalizedEmail)) {
-    writeAudit('register_failed', { reason: 'duplicate_email' });
+    writeAudit('register_failed', { reason: 'duplicate_email', emailHash: hashForAudit(normalizedEmail) });
     return res.status(409).json({ error: 'email already registered' });
   }
 
